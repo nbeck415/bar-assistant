@@ -8,7 +8,11 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: app
+    labels:
+      shipyard.route: '/'
     restart: unless-stopped
+    ports:
+      - 3000:3000
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -27,6 +31,8 @@ services:
 
   redis:
     image: redis
+    ports:
+      - 6379:6379
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     restart: unless-stopped
